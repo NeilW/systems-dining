@@ -65,7 +65,16 @@ Create the philosophers
 
     ubuntu@srv-2q8eh:~/systemd-dining$ xargs -L 1 sudo /usr/local/sbin/create_philosopher < philosophers
 
-Check the 
+Open the dining room
+
+    ubuntu@srv-5o1ic:~/systemd-dining$ sudo open_dining_room
+
+Check a philosopher's activity
+
+    ubuntu@srv-5o1ic:~/systemd-dining$ npcjournal hegel
+    Nov 14 09:15:33 srv-5o1ic select-seat[7048]: The Dining Room is open. Looking for a seat.
+    Nov 14 09:15:33 srv-5o1ic select-seat[7048]: I have seat #6
+    Nov 14 09:15:33 srv-5o1ic select-seat[7048]: Acquired sticky fork #7
 
 ## Stop the simulation
 
