@@ -46,4 +46,29 @@ a transient systemd job in the future.
 Once a philosopher gets hungry they email their dining neighbours asking
 for the shared fork.
 
+## Installation
 
+From an Ubuntu LTS server logged in as the admin user and run the setup script
+
+    ubuntu@srv-2q8eh:~$ git clone git@github.com:NeilW/systemd-dining.git
+    Cloning into 'systemd-dining'...
+    ...
+    ubuntu@srv-2q8eh:~$ cd systemd-dining/
+    ubuntu@srv-2q8eh:~/systemd-dining$ sudo ./setup.sh
+    Adding required packages
+    ...
+    Installing simulation
+
+## Run the simulation
+
+Create the philosophers
+
+    ubuntu@srv-2q8eh:~/systemd-dining$ xargs -L 1 sudo /usr/local/sbin/create_philosopher < philosophers
+
+Check the 
+
+## Stop the simulation
+
+Remove the philosophers
+
+    ubuntu@srv-2q8eh:~/systemd-dining$ awk '{print $1}' philosophers | xargs sudo /usr/local/sbin/remove_philosopher

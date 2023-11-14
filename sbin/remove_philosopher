@@ -1,0 +1,13 @@
+#!/bin/sh
+if [ "$#" -lt 1 ]
+then
+	echo "Usage: $(basename "$0") name ..." >&2
+	exit 1
+fi
+set -e
+for word in "$@"
+do
+	loginctl disable-linger "$word"
+	deluser "$word" philosophers
+	deluser --remove-home "$word"
+done

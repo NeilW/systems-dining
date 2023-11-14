@@ -1,0 +1,8 @@
+[Unit]
+Description="check if the dining room is open"
+
+[Path]
+PathModified=/home/share/dining-room
+
+[Install]
+WantedBy=default.target

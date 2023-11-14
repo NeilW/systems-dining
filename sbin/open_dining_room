@@ -1,0 +1,2 @@
+#!/bin/sh
+exec chmod g+w /home/share/dining-room/*

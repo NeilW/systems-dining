@@ -1,0 +1,3 @@
+#!/bin/sh
+dining=/home/share/dining-room
+exec install -d -D -g philosophers -m 1755 ${dining}/forks ${dining}/seats

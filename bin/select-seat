@@ -1,0 +1,32 @@
+#!/bin/sh
+set -e
+umask 077
+seat=1
+diningroom=/home/share/dining-room
+
+grab_fork() {
+    if [ ! -e "${diningroom}/forks/$1" ]
+    then
+        install -m=1644 -T /dev/null "${diningroom}/forks/$1"
+        echo "Acquired sticky fork #$1"
+    fi
+}
+
+if [ ! -w "${diningroom}/seats" ]
+then
+    echo "Dining room doesn't appear to be open yet"
+    exit
+fi 
+
+echo "The Dining Room is open. Looking for a seat."
+while ! touch "${diningroom}/seats/$seat" 2>/dev/null
+do
+	seat=$((seat+1))
+done
+echo "I have seat #${seat}"
+if [ "${seat}" -eq 1 ]
+then
+	echo "Seat #1 is head of the table"
+    grab_fork "${seat}"
+fi
+grab_fork $((seat+1))

@@ -1,0 +1,11 @@
+#!/bin/sh
+if [ "$#" -lt 2 ]
+then
+	echo "Usage: $(basename "$0") name 'Full Name' ['Comment']" >&2
+	exit 1
+fi
+set -e
+umask 022
+adduser --disabled-password --shell /bin/bash --gecos "$2,,,,$3" "$1" 
+usermod -aG philosophers "$1"
+loginctl enable-linger "$1"
