@@ -13,7 +13,7 @@ install sbin/* /usr/local/sbin
 cp -dR --preserve=mode skel /etc
 
 echo "Adding Philosophers group"
-addgroup philosophers
+getent group philosophers > /dev/null || addgroup philosophers
 
 echo "Creating dining room"
 install -Dd -g philosophers -m 755 /home/share/dining-room
