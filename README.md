@@ -43,8 +43,23 @@ exercise their head of the table privilege and take the 'sticky' fork #1 as well
 Now the philosophers think for a while until they get hungry by scheduling
 a transient systemd job in the future.
 
-Once a philosopher gets hungry they email their dining neighbours asking
-for the shared fork.
+Once a philosopher gets hungry (by setting the sticky bit on their seat)
+they email their dining neighbours asking for the shared fork.
+
+A systemd path watch on the mail directory waits for fork requests and responses to come in.
+
+For each fork request related to a sender
+- if we have a dirty fork, or a clean fork and we're not hungry, we
+  delete the fork and send a fork response back and delete the request
+- otherwise we hold the request
+
+For each fork response a clean fork is created and the response
+deleted. If both clean forks are held then the philosopher starts eating for a time.
+
+A transient systemd job is scheduled in the future which marks the forks
+dirty and the philosopher goes back to thinking (by clearing the sticky
+bit on their seat). A further transient job is scheduled in the future for when
+the philosopher gets hungry again.
 
 ## Installation
 

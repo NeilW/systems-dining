@@ -14,6 +14,7 @@ count() {
 
 echo "Getting hungry now"
 seat=$(my-dining-seat)
+chmod o+t "/home/share/dining-room/seats/${seat}"
 total=$(count /home/share/dining-room/seats/*)
 left_index=$((seat-1))
 right_index=$((seat+1))
