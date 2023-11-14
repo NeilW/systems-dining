@@ -1,0 +1,35 @@
+#!/bin/sh
+set -e
+
+count() {
+    case ${1##*/} in
+        \*)
+            echo 0
+            ;;
+        *)
+            echo $#
+            ;;
+    esac
+}
+
+echo "Getting hungry now"
+seat=$(my-dining-seat)
+total=$(count /home/share/dining-room/seats/*)
+left_index=$((seat-1))
+right_index=$((seat+1))
+if [ "${left_index}" -eq 0 ]
+then
+    left_index=${total}
+fi
+if [ "${right_index}" -gt "${total}" ]
+then
+    right_index=1
+fi
+
+left_name=$(seat-owner "${left_index}")
+right_name=$(seat-owner "${right_index}")
+echo "My left neighbour is ${left_name}"
+echo "My right neighbour is ${right_name}"
+
+echo "Requesting forks"
+exec request-fork "${left_name}" "${right_name}"
