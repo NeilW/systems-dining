@@ -1,9 +1,13 @@
 #!/bin/sh
 set -e
-if [ "$#" -ne 1 ]
+if [ "$#" -gt 1 ]
 then
-    echo "Usage: $(basename "$0") username" >&2
+    echo "Usage: $(basename "$0") [username]" >&2
     exit 1
 fi
 
-exec journalctl "_UID=$(id -u "$1")" SYSLOG_FACILITY=16
+if [ "$#" -eq 1 ]
+then
+    uidfilter=_UID=$(id -u "$1")
+fi
+exec journalctl SYSLOG_FACILITY=16 ${uidfilter}
