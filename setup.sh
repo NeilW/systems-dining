@@ -14,7 +14,3 @@ cp -dR --preserve=mode skel /etc
 
 echo "Adding Philosophers group"
 getent group philosophers > /dev/null || addgroup philosophers
-
-echo "Creating dining room"
-install -Dd -g philosophers -m 755 /home/share/dining-room
-install -d -g philosophers -m 1775 /home/share/dining-room/seats /home/share/dining-room/forks

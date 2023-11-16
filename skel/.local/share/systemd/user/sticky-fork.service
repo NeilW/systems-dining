@@ -1,0 +1,10 @@
+[Unit]
+Description=Mark forks sticky 
+ConditionPathIsDirectory=/home/share/dining-room/forks
+PartOf=eating.target
+
+[Service]
+Type=oneshot
+SyslogFacility=local0
+RemainAfterExit=yes
+ExecStop=/usr/bin/find /home/share/dining-room/forks/ -type f '!' -perm -1000 -writable -exec chmod a+t '{}' '+'

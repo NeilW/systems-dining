@@ -1,4 +1,2 @@
 #!/bin/sh
-set -e
-chmod g-w /home/share/dining-room/*
-rm -f /home/share/dining-room/forks/*
+exec rm -rf /home/share/dining-room
