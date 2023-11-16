@@ -1,6 +1,7 @@
 [Unit]
 Description=Thinking Period
 PartOf=thinking.target
+ConditionPathIsDirectory=/home/share/dining-room
 
 [Timer]
 Unit=eating.target
