@@ -1,10 +1,9 @@
 [Unit]
-Description=philosopher select seat service
+Description=Seat Selection
+Wants=thinking.target
+Before=thinking.target
 
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/select-seat
 SyslogFacility=local0
-
-[Install]
-WantedBy=default.target

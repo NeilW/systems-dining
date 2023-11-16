@@ -1,5 +1,5 @@
 [Unit]
-Description="check if the dining room is open"
+Description=Watch Dining Room
 
 [Path]
 PathModified=/home/share/dining-room

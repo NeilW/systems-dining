@@ -1,0 +1,4 @@
+[Unit]
+Description=Thinking...
+Conflicts=eating.target
+Wants=thinking.timer
