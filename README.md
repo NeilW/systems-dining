@@ -40,26 +40,26 @@ by creating a fork file with their name on it, the number of the *next*
 position and the 'sticky bit' set.  The philosopher in seat #1 will
 exercise their head of the table privilege and take the 'sticky' fork #1 as well.
 
-Now the philosophers think for a while until they get hungry by scheduling
-a transient systemd job in the future.
+The philosophers now enter the thinking state and set a time in the
+future when they will become hungry
 
-Once a philosopher gets hungry (by setting the sticky bit on their seat)
+Once a philosopher reaches the hungry target
 they email their dining neighbours asking for the shared fork.
 
-A systemd path watch on the mail directory waits for fork requests and responses to come in.
+A sendmail '.forward' file runs a program for each email received.
 
 For each fork request related to a sender
 - if we have a dirty fork, or a clean fork and we're not hungry, we
-  delete the fork and send a fork response back and delete the request
-- otherwise we hold the request
+  delete the fork and send a fork response back.
+- otherwise we inform the mail system to queue and redeliver the message in the future.
 
-For each fork response a clean fork is created and the response
-deleted. If both clean forks are held then the philosopher starts eating for a time.
+For each fork response a clean fork is created.
 
-A transient systemd job is scheduled in the future which marks the forks
-dirty and the philosopher goes back to thinking (by clearing the sticky
-bit on their seat). A further transient job is scheduled in the future for when
-the philosopher gets hungry again.
+Once a philosopher has two clean forks they enter the eating state and
+set a time in the future when they will start thinking again.
+
+Before they enter the thinking state again, any forks they own are marked
+as sticky.
 
 ## Installation
 

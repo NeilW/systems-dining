@@ -5,7 +5,7 @@ APT_GET="DEBIAN_FRONTEND=noninteractive NEEDRESTART_SUSPEND=1 apt-get -o Dpkg::O
 echo "Adding required packages"
 eval ${APT_GET} update
 eval ${APT_GET} upgrade
-eval ${APT_GET} install dma mailutils systemd-container finger
+eval ${APT_GET} install sendmail mailutils systemd-container finger
 
 echo "Installing simulation"
 install bin/* /usr/local/bin
