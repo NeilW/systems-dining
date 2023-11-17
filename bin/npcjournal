@@ -1,13 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 set -e
-if [ "$#" -gt 1 ]
+if [ "$#" -ne 0 ]
 then
-    echo "Usage: ${0##*/} [username]" >&2
-    exit 1
+	user="${!#}"
+	case "${user}" in
+	[A-Za-z]*[^=]*)
+		 uidfilter=_UID=$(id -u "${!#}")
+		 set -- "${@:1:$(($#-1))}"
+		 ;;
+	esac
 fi
-
-if [ "$#" -eq 1 ]
-then
-    uidfilter=_UID=$(id -u "$1")
-fi
-exec journalctl SYSLOG_FACILITY=16 ${uidfilter}
+exec journalctl --no-hostname --facility=16 ${uidfilter} "$@"

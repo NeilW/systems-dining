@@ -93,6 +93,10 @@ Check a philosopher's activity
 
 ## Stop the simulation
 
+Close the dining room
+
+    ubuntu@srv-5o1ic:~/systemd-dining$ sudo close_dining_room
+
 Remove the philosophers
 
     ubuntu@srv-2q8eh:~/systemd-dining$ awk '{print $1}' philosophers | xargs sudo /usr/local/sbin/remove_philosopher
