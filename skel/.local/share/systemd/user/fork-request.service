@@ -1,0 +1,11 @@
+[Unit]
+Description=Neighbour Fork Request
+ConditionPathIsDirectory=/home/share/dining-room/forks
+PartOf=hungry.target
+# Make sure the fork watch is in place before we request any forks
+After=fork-check.path
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/fork-request
+SyslogFacility=local0

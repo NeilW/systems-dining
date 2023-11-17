@@ -1,0 +1,6 @@
+[Unit]
+Description=Watch Forks
+PartOf=hungry.target
+
+[Path]
+PathModified=/home/share/dining-room/forks

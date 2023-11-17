@@ -12,16 +12,14 @@ count() {
     esac
 }
 
-echo "Getting hungry now"
 seat=$(my-dining-seat)
-chmod o+t "/home/share/dining-room/seats/${seat}"
 total=$(count /home/share/dining-room/seats/*)
 left_index=$((seat-1))
-right_index=$((seat+1))
 if [ "${left_index}" -eq 0 ]
 then
     left_index=${total}
 fi
+right_index=$((seat+1))
 if [ "${right_index}" -gt "${total}" ]
 then
     right_index=1

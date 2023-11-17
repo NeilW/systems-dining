@@ -1,0 +1,12 @@
+[Unit]
+Description=Clean Fork Check
+ConditionPathIsDirectory=/home/share/dining-room/forks
+PartOf=hungry.target
+CollectMode=inactive-or-failed
+Wants=eating.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/fork-check
+SyslogFacility=local0
+RemainAfterExit=true

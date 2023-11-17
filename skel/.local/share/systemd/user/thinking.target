@@ -1,5 +1,5 @@
 [Unit]
 Description=Thinking...
-Conflicts=eating.target
-ConditionPathExists=/home/share/dining-room
+ConditionPathIsDirectory=/home/share/dining-room
+Conflicts=eating.target hungry.target
 Wants=thinking.timer

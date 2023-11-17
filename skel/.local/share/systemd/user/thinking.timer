@@ -1,10 +1,10 @@
 [Unit]
 Description=Thinking Period
-PartOf=thinking.target
 ConditionPathIsDirectory=/home/share/dining-room
+PartOf=thinking.target
 
 [Timer]
-Unit=eating.target
+Unit=hungry.target
 RandomizedDelaySec=30
 OnActiveSec=0
 AccuracySec=1us

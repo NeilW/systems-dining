@@ -1,7 +1,7 @@
 [Unit]
 Description=Eating Period
-PartOf=eating.target
 ConditionPathIsDirectory=/home/share/dining-room
+PartOf=eating.target
 
 [Timer]
 Unit=thinking.target

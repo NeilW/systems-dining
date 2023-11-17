@@ -1,13 +1,11 @@
 [Unit]
-Description=Mark forks sticky 
+Description=Sticky Fork Marker
 ConditionPathIsDirectory=/home/share/dining-room/forks
 PartOf=eating.target
+Before=thinking.target
 
 [Service]
 Type=oneshot
 SyslogFacility=local0
 RemainAfterExit=yes
-ExecStop=/usr/bin/find /home/share/dining-room/forks/ -type f '!' -perm -1000 -writable -exec chmod a+t '{}' '+'
-# Cover the case when the directory vanishes while the unit is waiting
-# for a stop signal
-SuccessExitStatus=1
+ExecStop=/usr/local/bin/sticky-fork
