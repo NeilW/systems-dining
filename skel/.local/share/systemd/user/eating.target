@@ -2,6 +2,4 @@
 Description=Eating...
 ConditionPathIsDirectory=/home/share/dining-room
 Conflicts=thinking.target
-BindsTo=fork-check.service
-After=fork-check.service
 Wants=eating.timer eating-food.service

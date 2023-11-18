@@ -1,5 +1,4 @@
 [Unit]
 Description=Hungry...
 ConditionPathIsDirectory=/home/share/dining-room
-Conflicts=thinking.target
 Wants=fork-check.path fork-request.service
