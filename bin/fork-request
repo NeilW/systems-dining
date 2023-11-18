@@ -27,6 +27,7 @@ fi
 
 left_name=$(seat-owner "${left_index}")
 right_name=$(seat-owner "${right_index}")
+echo "I'm getting hungry"
 echo "My left neighbour is ${left_name}"
 echo "My right neighbour is ${right_name}"
 

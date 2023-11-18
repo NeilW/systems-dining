@@ -1,5 +1,5 @@
 [Unit]
-Description=Sticky Fork Marker
+Description=Eating Food
 ConditionPathIsDirectory=/home/share/dining-room/forks
 PartOf=eating.target
 Before=thinking.target
@@ -8,4 +8,6 @@ Before=thinking.target
 Type=oneshot
 SyslogFacility=local0
 RemainAfterExit=yes
+ExecStart=echo "Eating"
+# Mark forks sticky after we've finished eating
 ExecStop=/usr/local/bin/sticky-fork
