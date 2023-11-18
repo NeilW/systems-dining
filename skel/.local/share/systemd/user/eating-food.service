@@ -8,6 +8,6 @@ Before=thinking.target
 Type=oneshot
 SyslogFacility=local0
 RemainAfterExit=yes
-ExecStart=echo "Eating"
+ExecStart=/usr/local/bin/consumption
 # Mark forks sticky after we've finished eating
 ExecStop=/usr/local/bin/sticky-fork
