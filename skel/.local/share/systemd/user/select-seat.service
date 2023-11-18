@@ -1,8 +1,7 @@
 [Unit]
 Description=Seat Selection
 ConditionPathIsDirectory=/home/share/dining-room
-Wants=thinking.target
-Before=thinking.target
+OnSuccess=thinking.target
 
 [Service]
 Type=oneshot
