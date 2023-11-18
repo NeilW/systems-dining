@@ -1,5 +1,6 @@
 [Unit]
 Description=Watch Forks
+ConditionPathIsDirectory=/home/share/dining-room
 PartOf=hungry.target
 
 [Path]
