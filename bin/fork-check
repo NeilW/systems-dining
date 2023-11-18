@@ -31,4 +31,5 @@ then
     echo "I have two clean forks"
     exit 0
 fi
-exit 1
+# Return EX_TEMPFAIL
+exit 75

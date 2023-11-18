@@ -2,7 +2,7 @@
 if [ "$#" -lt 1 ]
 then
 	echo "Usage: ${0##*/} name ..." >&2
-	exit 1
+	exit 64
 fi
 set -e
 for word

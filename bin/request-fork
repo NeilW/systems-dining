@@ -2,6 +2,7 @@
 if [ "$#" -eq 0 ]
 then
 	echo "Usage: ${0##*/} name..."
+    exit 64
 fi
 for word
 do

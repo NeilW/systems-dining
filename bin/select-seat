@@ -15,7 +15,8 @@ grab_fork() {
 if [ ! -w "${diningroom}/seats" ]
 then
     echo "Dining room doesn't appear to be open yet"
-    exit
+    # Return EX_UNAVAILABLE
+    exit 69
 fi 
 
 echo "The Dining Room is open. Looking for a seat."
