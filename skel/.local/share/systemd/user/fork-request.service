@@ -2,6 +2,7 @@
 Description=Neighbour Fork Request
 ConditionPathIsDirectory=/home/share/dining-room/forks
 PartOf=hungry.target
+CollectMode=inactive-or-failed
 # Make sure the fork watch is in place before we request any forks
 After=fork-check.path
 
