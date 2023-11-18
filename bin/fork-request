@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
+# count fileglob
 count() {
     case ${1##*/} in
         \*)
@@ -12,21 +13,34 @@ count() {
     esac
 }
 
+# validate_username username userid position
+validate_username() {
+    if [ "${1}" = 'UNKNOWN' ]
+    then
+        echo "${3} neighbour ${2} is not ready"
+        exit 75
+    fi
+}
+
 seat=$(my-dining-seat)
-total=$(count /home/share/dining-room/seats/*)
-left_index=$((seat-1))
-if [ "${left_index}" -eq 0 ]
-then
-    left_index=${total}
-fi
+# FIXME: get rid of this magic prior knowledge number
+total=13
 right_index=$((seat+1))
 if [ "${right_index}" -gt "${total}" ]
 then
     right_index=1
 fi
+left_index=$((seat-1))
+if [ "${left_index}" -eq 0 ]
+then
+    left_index=${total}
+fi
 
 left_name=$(seat-owner "${left_index}")
 right_name=$(seat-owner "${right_index}")
+validate_username "${left_name}" "${left_index}" "Left"
+validate_username "${right_name}" "${right_index}" "Right"
+
 echo "I'm getting hungry"
 echo "My left neighbour is ${left_name}"
 echo "My right neighbour is ${right_name}"
