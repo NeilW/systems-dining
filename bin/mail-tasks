@@ -1,0 +1,105 @@
+#!/bin/sh
+set -e
+umask 077
+diningroom=/home/share/dining-room
+
+#SystemD requirements...
+XDG_RUNTIME_DIR=/run/user/$(id -u)
+DBUS_SESSION_BUS_ADDRESS=unix:path=${XDG_RUNTIME_DIR}/bus
+export XDG_RUNTIME_DIR DBUS_SESSION_BUS_ADDRESS
+
+grab_fork() {
+    if [ ! -e "${diningroom}/forks/$1" ]
+    then
+        install -m=644 -T /dev/null "${diningroom}/forks/$1"
+        echo "Acquired fork #$1"
+    fi
+}
+
+remove_fork() {
+    if [ -w "${diningroom}/forks/$1" ]
+    then
+        rm "${diningroom}/forks/$1"
+        echo "Cleaned fork #$1"
+    else
+        echo "I don't have fork #$1"
+        echo "Ignoring request"
+        exit 0
+    fi
+}
+
+if [ "$#" -ne 2 ]
+then
+	echo "Usage: ${0##*/} username subject"
+	exit 64
+fi
+
+seat=$(my-dining-seat)
+# FIXME: get rid of this magic prior knowledge number
+total=13
+right_index=$((seat+1))
+if [ "${right_index}" -gt "${total}" ]
+then
+    right_index=1
+fi
+left_index=$((seat-1))
+if [ "${left_index}" -eq 0 ]
+then
+    left_index=${total}
+fi
+
+other=$(my-dining-seat "${1}")
+if [ -z "${other}" ]
+then
+    echo "$2: No seat found for ${1}"
+    echo "Discarding mail"
+    exit 0
+fi
+
+case "$2" in
+Fork\ Request)
+    echo "Received fork request from $1"
+    if systemctl --user --quiet is-active thinking.target
+    then
+        echo "while thinking."
+    else
+        echo "while not thinking. Ignoring request"
+        exit 0
+    fi
+    if [ "${other}" -eq "${left_index}" ]
+    then
+        remove_fork "${seat}"
+    elif [ "${other}" -eq "${right_index}" ]
+    then
+        remove_fork "${right_index}"
+    else
+        echo "Fork Request error"
+        echo "Unexpected seat ${other} for $1"
+        echo "I'm seat ${seat}, left is ${left_index}, right is ${right_index}"
+        echo "Discarding mail"
+        exit 0
+    fi
+    exec response-fork "${1}"
+    ;;
+Fork\ Response)
+    echo "Received fork response from $1"
+    if [ "${other}" -eq "${left_index}" ]
+    then
+        grab_fork "${seat}"
+    elif [ "${other}" -eq "${right_index}" ]
+    then
+        grab_fork "${right_index}"
+    else
+        echo "Fork Response error"
+        echo "Unexpected seat ${other} for $1"
+        echo "I'm seat ${seat}, left is ${left_index}, right is ${right_index}"
+        echo "Discarding mail"
+        exit 0
+    fi
+    ;;
+*)
+    echo "Unknown mail request ${2} from ${1}"
+    echo "Discarding mail"
+    exit 0
+esac
+exit 0

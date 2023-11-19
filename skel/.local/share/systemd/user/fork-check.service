@@ -1,9 +1,11 @@
 [Unit]
 Description=Clean Fork Check
 ConditionPathIsDirectory=/home/share/dining-room/forks
-PartOf=hungry.target
 CollectMode=inactive-or-failed
 OnSuccess=eating.target
+OnFailure=fork-request.service
+StartLimitIntervalSec=0
+After=hungry.target
 
 [Service]
 Type=oneshot

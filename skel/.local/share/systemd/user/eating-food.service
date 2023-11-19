@@ -9,5 +9,5 @@ Type=oneshot
 SyslogFacility=local0
 RemainAfterExit=yes
 ExecStart=/usr/local/bin/consumption
-# Mark forks sticky after we've finished eating
-ExecStop=/usr/local/bin/sticky-fork
+# Send forks to neighbours after eating
+ExecStop=/usr/local/bin/fork-release

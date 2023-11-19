@@ -24,9 +24,7 @@ then
 fi
 
 if [ -w "${forkarea}/${lfork}" ] &&
-   [ -w "${forkarea}/${rfork}" ] &&
-   [ ! -k "${forkarea}/${lfork}" ] &&
-   [ ! -k "${forkarea}/${rfork}" ]
+   [ -w "${forkarea}/${rfork}" ]
 then
     echo "I have two clean forks"
     exit 0

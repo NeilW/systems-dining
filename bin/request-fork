@@ -7,5 +7,5 @@ fi
 for word
 do
     echo "Asking ${word} for the shared fork"
-	#mail -E'unset nullbodymsg' -s 'Fork Request' "${word}" < /dev/null
+	mail -E'unset nullbodymsg' -s 'Fork Request' "${word}" < /dev/null
 done

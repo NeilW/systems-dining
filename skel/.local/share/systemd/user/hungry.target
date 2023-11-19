@@ -1,4 +1,4 @@
 [Unit]
 Description=Hungry...
 ConditionPathIsDirectory=/home/share/dining-room
-Wants=fork-check.path fork-request.service
+Wants=hunger.service fork-check.path fork-check.service

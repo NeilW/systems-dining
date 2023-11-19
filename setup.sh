@@ -10,7 +10,7 @@ eval ${APT_GET} install sendmail mailutils systemd-container finger
 echo "Installing simulation"
 install bin/* /usr/local/bin
 install sbin/* /usr/local/sbin
-cp -dR --preserve=mode skel /etc
+cp -dR skel /etc
 
 echo "Adding Philosophers group"
 getent group philosophers > /dev/null || addgroup philosophers

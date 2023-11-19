@@ -1,7 +1,6 @@
 #!/bin/sh
 set -e
 
-# count fileglob
 count() {
     case ${1##*/} in
         \*)
@@ -13,37 +12,30 @@ count() {
     esac
 }
 
-# validate_username username userid position
-validate_username() {
-    if [ "${1}" = 'UNKNOWN' ]
+# ask_for_fork fork_num
+ask_for_fork() {
+    if [ ! -w "${1}" ]
     then
-        echo "${3} neighbour ${2} is not ready"
-        exit 75
+        echo "I don't have fork #${2}"
+        if [ -e "${1}" ]
+        then
+            request-fork "$(stat --format=%U "${1}")"
+        else
+            echo "and it is missing (response in transit)"
+        fi
     fi
 }
 
-seat=$(my-dining-seat)
-# FIXME: get rid of this magic prior knowledge number
-total=13
-right_index=$((seat+1))
-if [ "${right_index}" -gt "${total}" ]
+diningroom=/home/share/dining-room
+forkarea=${diningroom}/forks
+
+lfork=$(my-dining-seat)
+total=$(count ${diningroom}/seats/*)
+rfork=$((lfork+1))
+if [ "${rfork}" -gt "${total}" ]
 then
-    right_index=1
-fi
-left_index=$((seat-1))
-if [ "${left_index}" -eq 0 ]
-then
-    left_index=${total}
+    rfork=1
 fi
 
-left_name=$(seat-owner "${left_index}")
-right_name=$(seat-owner "${right_index}")
-validate_username "${left_name}" "${left_index}" "Left"
-validate_username "${right_name}" "${right_index}" "Right"
-
-echo "I'm getting hungry"
-echo "My left neighbour is ${left_name}"
-echo "My right neighbour is ${right_name}"
-
-echo "Requesting forks"
-exec request-fork "${left_name}" "${right_name}"
+ask_for_fork "${forkarea}/${lfork}" "${lfork}"
+ask_for_fork "${forkarea}/${rfork}" "${rfork}"

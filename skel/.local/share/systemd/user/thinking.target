@@ -2,4 +2,4 @@
 Description=Thinking...
 ConditionPathIsDirectory=/home/share/dining-room
 Conflicts=eating.target hungry.target
-Wants=thinking.timer contemplation.service
+Wants=contemplation.service thinking.timer
