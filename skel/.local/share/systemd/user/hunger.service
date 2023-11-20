@@ -2,8 +2,7 @@
 Description=Hunger
 ConditionPathIsDirectory=/home/share/dining-room
 PartOf=hungry.target
-After=contemplation.service
-Before=fork-check.service
+Before=eating.target fork-check.service
 
 [Service]
 Type=oneshot

@@ -2,7 +2,7 @@
 Description=Contemplation
 ConditionPathIsDirectory=/home/share/dining-room
 PartOf=thinking.target
-After=eating-food.service
+Before=hungry.target
 
 [Service]
 Type=oneshot
