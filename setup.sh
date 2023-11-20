@@ -10,7 +10,10 @@ eval ${APT_GET} install sendmail mailutils systemd-container finger
 echo "Installing simulation"
 install bin/* /usr/local/bin
 install sbin/* /usr/local/sbin
-cp -dR skel /etc
+install user/* /etc/systemd/user
+install -m 644 skel/.forward -T /etc/skel/.forward
+mkdir -p /etc/skel/.config/systemd/user/default.target.wants
+ln -sf /etc/systemd/user/select-seat.path /etc/systemd/user/select-seat.service /etc/skel/.config/systemd/user/default.target.wants
 
 echo "Adding Philosophers group"
 getent group philosophers > /dev/null || addgroup philosophers
