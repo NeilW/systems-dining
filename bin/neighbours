@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+diningroom=/home/share/dining-room
 
 # count fileglob
 count() {
@@ -23,8 +24,7 @@ validate_username() {
 }
 
 seat=$(my-dining-seat)
-# FIXME: get rid of this magic prior knowledge number
-total=13
+total=$(count ${diningroom}/seats/*)
 right_index=$((seat+1))
 if [ "${right_index}" -gt "${total}" ]
 then

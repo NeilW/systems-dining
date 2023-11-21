@@ -8,6 +8,18 @@ XDG_RUNTIME_DIR=/run/user/$(id -u)
 DBUS_SESSION_BUS_ADDRESS=unix:path=${XDG_RUNTIME_DIR}/bus
 export XDG_RUNTIME_DIR DBUS_SESSION_BUS_ADDRESS
 
+# count fileglob
+count() {
+    case ${1##*/} in
+        \*)
+            echo 0
+            ;;
+        *)
+            echo $#
+            ;;
+    esac
+}
+
 grab_fork() {
     if [ ! -e "${diningroom}/forks/$1" ]
     then
@@ -35,8 +47,7 @@ then
 fi
 
 seat=$(my-dining-seat)
-# FIXME: get rid of this magic prior knowledge number
-total=13
+total=$(count ${diningroom}/seats/*)
 right_index=$((seat+1))
 if [ "${right_index}" -gt "${total}" ]
 then
