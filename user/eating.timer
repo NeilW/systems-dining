@@ -1,6 +1,6 @@
 [Unit]
 Description=Eating Period
-ConditionPathIsDirectory=/home/share/dining-room
+ConditionPathIsDirectory=/home/share/dining-room/seats
 PartOf=eating.target
 
 [Timer]

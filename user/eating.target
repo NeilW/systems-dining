@@ -1,5 +1,5 @@
 [Unit]
 Description=Eating...
-ConditionPathIsDirectory=/home/share/dining-room
+ConditionPathIsDirectory=/home/share/dining-room/seats
 Conflicts=thinking.target hungry.target
 Wants=eating.timer eating-food.service

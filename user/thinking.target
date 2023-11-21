@@ -1,5 +1,4 @@
 [Unit]
 Description=Thinking...
-ConditionPathIsDirectory=/home/share/dining-room
 Conflicts=eating.target hungry.target
 Wants=contemplation.service thinking.timer

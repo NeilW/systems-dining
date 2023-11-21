@@ -1,6 +1,5 @@
 [Unit]
 Description=Thinking Period
-ConditionPathIsDirectory=/home/share/dining-room
 PartOf=thinking.target
 
 [Timer]
