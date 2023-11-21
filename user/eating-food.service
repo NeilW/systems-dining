@@ -2,7 +2,7 @@
 Description=Eating Food
 ConditionPathIsDirectory=/home/share/dining-room/forks
 PartOf=eating.target
-Before=thinking.target
+Before=thinking.timer thinking.target
 
 [Service]
 Type=oneshot
