@@ -1,7 +1,8 @@
 #!/bin/sh
 set -e
 umask 077
-seat=1
+base=10
+head=$((base + 1))
 diningroom=/home/share/dining-room
 WAIT_FOR_READY_SECS=2
 
@@ -15,20 +16,20 @@ grab_fork() {
 
 # Monitor seat events until no more occur. Then create fork #1
 head_of_table() {
-    echo "I am head of table in seat #1"
+    echo "I am head of table in seat #${head}"
     echo "Waiting for others to take their seats"
     fsnotifywait -q -q -t "${WAIT_FOR_READY_SECS}" -m "${diningroom}/seats" || [ "$?" -eq 2 ]
-    grab_fork 1
+    grab_fork ${head}
 }
 
 # Backup timeout poll code is here to handle gap between existence testing
 # and the file watch engaging.
 wait_for_head_of_table() {
     until
-        [ -e "${diningroom}/forks/1" ]
+        [ -e "${diningroom}/forks/${head}" ]
     do
-        echo "Waiting for fork #1"
-        fsnotifywait -q -q -e close_write -t "${WAIT_FOR_READY_SECS}" --include '/1$' "${diningroom}/forks" || [ "$?" -eq 2 ]
+        echo "Waiting for fork #${head}"
+        fsnotifywait -q -q -e close_write -t "${WAIT_FOR_READY_SECS}" --include "/${head}$" "${diningroom}/forks" || [ "$?" -eq 2 ]
     done
 }
 
@@ -40,14 +41,15 @@ then
 fi 
 
 echo "The Dining Room is open. Looking for a seat."
-until touch "${diningroom}/seats/$seat" 2>/dev/null
+seat=${head}
+until touch "${diningroom}/seats/${seat}" 2>/dev/null
 do
 	seat=$((seat+1))
 done
 echo "I have seat #${seat}"
 
 grab_fork $((seat+1))
-if [ "${seat}" -eq 1 ]
+if [ "${seat}" -eq "${head}" ]
 then
     head_of_table
 else

@@ -14,13 +14,15 @@ count() {
 
 diningroom=/home/share/dining-room
 forkarea=${diningroom}/forks
+base=10
 
 lfork=$(my-dining-seat)
-total=$(count ${diningroom}/seats/*)
-rfork=$((lfork+1))
-if [ "${rfork}" -gt "${total}" ]
+max=$(count ${diningroom}/seats/*)
+max=$((max + base))
+rfork=$((lfork + 1))
+if [ "${rfork}" -gt "${max}" ]
 then
-    rfork=1
+    rfork=$((base + 1))
 fi
 
 if [ -w "${forkarea}/${lfork}" ] &&

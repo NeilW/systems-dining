@@ -2,6 +2,7 @@
 set -e
 umask 077
 diningroom=/home/share/dining-room
+base=10
 
 #SystemD requirements...
 XDG_RUNTIME_DIR=/run/user/$(id -u)
@@ -47,16 +48,17 @@ then
 fi
 
 seat=$(my-dining-seat)
-total=$(count ${diningroom}/seats/*)
-right_index=$((seat+1))
-if [ "${right_index}" -gt "${total}" ]
+max=$(count ${diningroom}/seats/*)
+max=$((max + base))
+right_index=$((seat + 1))
+if [ "${right_index}" -gt "${max}" ]
 then
-    right_index=1
+    right_index=$((base + 1))
 fi
-left_index=$((seat-1))
-if [ "${left_index}" -eq 0 ]
+left_index=$((seat - 1))
+if [ "${left_index}" -eq ${base} ]
 then
-    left_index=${total}
+    left_index=${max}
 fi
 
 other=$(my-dining-seat "${1}")

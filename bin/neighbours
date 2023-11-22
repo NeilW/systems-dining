@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 diningroom=/home/share/dining-room
+base=10
 
 # count fileglob
 count() {
@@ -24,16 +25,17 @@ validate_username() {
 }
 
 seat=$(my-dining-seat)
-total=$(count ${diningroom}/seats/*)
-right_index=$((seat+1))
-if [ "${right_index}" -gt "${total}" ]
+max=$(count ${diningroom}/seats/*)
+max=$((max + base))
+right_index=$((seat + 1))
+if [ "${right_index}" -gt "${max}" ]
 then
-    right_index=1
+    right_index=$((base + 1))
 fi
-left_index=$((seat-1))
-if [ "${left_index}" -eq 0 ]
+left_index=$((seat - 1))
+if [ "${left_index}" -eq "${base}" ]
 then
-    left_index=${total}
+    left_index=${max}
 fi
 
 left_name=$(seat-owner "${left_index}")
