@@ -70,13 +70,28 @@ fi
 case "$2" in
 Fork\ Request)
     echo "Received fork request from $1"
-    if systemctl --user --quiet is-active thinking.target
+    # Try to be as atomic as possible
+    if systemctl --user --quiet is-active eating.target hungry.target
     then
-        echo "while thinking."
-    else
-        echo "while not thinking. Ignoring request"
-        exit 0
+        if systemctl --user --quiet is-active hungry.target
+        then
+            echo "while hungry. Considering request..."
+            # Check we're not transitioning between states
+            if fork-check
+            then
+                echo "Mmmm. should be eating"
+                echo "I'll pick up the fork again"
+                install -m=644 -T /dev/null "${diningroom}/forks/${seat}"
+                exit 0
+            fi
+            echo "I have priority"
+            exit 0
+        else
+            echo "while eating. Ignoring request."
+            exit 0
+        fi
     fi
+    echo "while thinking. Handling request"
     if [ "${other}" -eq "${left_index}" ]
     then
         remove_fork "${seat}"
