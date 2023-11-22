@@ -28,7 +28,7 @@ fi
 if [ -w "${forkarea}/${lfork}" ] &&
    [ -w "${forkarea}/${rfork}" ]
 then
-    echo "I have two clean forks"
+    echo "I have two forks"
     exit 0
 fi
 # Return EX_TEMPFAIL

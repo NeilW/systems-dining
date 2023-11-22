@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
-umask 077
+# Read write by user only, no execute
+umask 0177
 base=10
 head=$((base + 1))
 diningroom=/home/share/dining-room
@@ -9,7 +10,7 @@ WAIT_FOR_READY_SECS=2
 grab_fork() {
     if [ ! -e "${diningroom}/forks/$1" ]
     then
-        install -m=644 -T /dev/null "${diningroom}/forks/$1"
+        touch "${diningroom}/forks/$1"
         echo "Acquired fork #$1"
     fi
 }
