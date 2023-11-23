@@ -34,7 +34,7 @@ remove_fork() {
     if [ -w "${diningroom}/forks/$1" ]
     then
         rm "${diningroom}/forks/$1"
-        echo "Cleaned fork #$1"
+        echo "Released fork #$1"
     else
         echo "I don't have fork #$1"
         echo "Ignoring request"

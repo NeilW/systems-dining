@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-echo "Cleaning forks"
+echo "Releasing forks"
 find /home/share/dining-room/forks -type f -writable -delete
 echo "Transferring forks"
 neighbours | xargs -r response-fork

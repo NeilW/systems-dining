@@ -1,5 +1,5 @@
 [Unit]
-Description=Clean Fork Check
+Description=Fork Check
 ConditionPathIsDirectory=/home/share/dining-room/forks
 CollectMode=inactive-or-failed
 OnSuccess=eating.target
