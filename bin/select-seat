@@ -14,7 +14,7 @@ grab_fork() {
     echo "Acquired fork #$1"
 }
 
-# Monitor seat events until no more occur. Then create fork #1
+# Monitor seat events until no more occur. Then create the head fork.
 head_of_table() {
     echo "I am head of table in seat #${head}"
     echo "Waiting for others to take their seats"
@@ -22,7 +22,7 @@ head_of_table() {
     grab_fork ${head}
 }
 
-# Backup timeout poll code is here to handle gap between existence testing
+# Backup timeout poll code is here to handle the gap between existence testing
 # and the file watch engaging.
 wait_for_head_of_table() {
     until
