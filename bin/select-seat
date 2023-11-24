@@ -7,12 +7,11 @@ head=$((base + 1))
 diningroom=/home/share/dining-room
 WAIT_FOR_READY_SECS=2
 
+# Nobody should be contending
+# for fork files at this stage
 grab_fork() {
-    if [ ! -e "${diningroom}/forks/$1" ]
-    then
-        touch "${diningroom}/forks/$1"
-        echo "Acquired fork #$1"
-    fi
+    touch "${diningroom}/forks/$1"
+    echo "Acquired fork #$1"
 }
 
 # Monitor seat events until no more occur. Then create fork #1
