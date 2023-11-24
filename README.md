@@ -46,7 +46,7 @@ from their project file, and set a time in the future when they will
 become hungry.
 
 Once a philosopher reaches the hungry target, they check if they have both forks. If not
-they email the relevant dining neighbour(s) asking for the shared fork. 
+they email the relevant dining neighbour(s) asking for the shared fork.
 
 A sendmail '.forward' file runs a mail processor for each email received.
 
@@ -57,7 +57,7 @@ For each fork request related to a sender
 For each fork response received a fork is created. Forks can only be
 acquired as a result of a fork response and thereby with permission
 of the neighbour. This both maintains the acyclical nature of the fork
-graph and avoids starvation (systemically and metaphorically). 
+graph and avoids starvation (systemically and metaphorically).
 
 Once a philosopher has two forks they enter the eating state and
 set a time in the future when they will start thinking again.
@@ -119,7 +119,7 @@ Follow a philosopher's activity in real time
     Nov 19 14:10:35 fork-release[1072257]: Giving wittgenstein a clean shared fork
     Nov 19 14:10:35 fork-release[1072257]: Giving hume a clean shared fork
     ...
-    
+
 Look at today's contemplations for a philosopher
 
     ubuntu@srv-4mujm:~$ npcjournal --since=today --identifier=contemplation hegel | more
