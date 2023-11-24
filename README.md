@@ -22,7 +22,7 @@ Unix Programming Environment a work out it hasn't seen for a good while.
 
 ## Design overview
 
-We'll be using is a variant of the Chandry/Misra 'hygiene' solution to
+We'll be using a variant of the Chandry/Misra 'hygiene' solution to
 the Dining Philosophers problem.
 
 Each philosopher is a separate user ID on the server and sits in its
