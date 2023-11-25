@@ -1,36 +1,15 @@
 #!/bin/sh
 set -e
-# Read write by user only, no execute
-umask 0177
+# Read write by user only
+umask 077
 base=10
 head=$((base + 1))
 diningroom=/home/share/dining-room
 WAIT_FOR_READY_SECS=2
 
-# Nobody should be contending
-# for fork files at this stage
 grab_fork() {
-    touch "${diningroom}/forks/$1"
+    touch "${HOME}/forks/$1"
     echo "Acquired fork #$1"
-}
-
-# Monitor seat events until no more occur. Then create the head fork.
-head_of_table() {
-    echo "I am head of table in seat #${head}"
-    echo "Waiting for others to take their seats"
-    fsnotifywait -q -q -t "${WAIT_FOR_READY_SECS}" -m "${diningroom}/seats" || [ "$?" -eq 2 ]
-    grab_fork ${head}
-}
-
-# Backup timeout poll code is here to handle the gap between existence testing
-# and the file watch engaging.
-wait_for_head_of_table() {
-    until
-        [ -e "${diningroom}/forks/${head}" ]
-    do
-        echo "Waiting for fork #${head}"
-        fsnotifywait -q -q -e close_write -t "${WAIT_FOR_READY_SECS}" --include "/${head}$" "${diningroom}/forks" || [ "$?" -eq 2 ]
-    done
 }
 
 if [ ! -w "${diningroom}/seats" ]
@@ -48,11 +27,18 @@ do
 done
 echo "I have seat #${seat}"
 
+
+echo "Creating my fork store"
+rm -rf "${HOME}/forks"
+mkdir "${HOME}/forks"
+
 grab_fork $((seat+1))
 if [ "${seat}" -eq "${head}" ]
 then
-    head_of_table
-else
-    wait_for_head_of_table
+    grab_fork ${head}
 fi
+
+echo "Waiting for everybody to take their seats"
+fsnotifywait -q -q -e close_write -t "${WAIT_FOR_READY_SECS}" -m "${diningroom}/seats" || [ "$?" -eq 2 ]
+
 echo "Starting..."

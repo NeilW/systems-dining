@@ -14,30 +14,37 @@ count() {
 
 # ask_for_fork fork_num
 ask_for_fork() {
-    if [ ! -w "${1}" ]
+    if [ -w "${1}" ]
     then
+        echo "I already have fork #${2}"
+    else
         echo "I don't have fork #${2}"
-        if [ -e "${1}" ]
-        then
-            request-fork "$(stat --format=%U "${1}")"
-        else
-            echo "and it is missing (response in transit)"
-        fi
+        request-fork "${3}"
     fi
 }
 
 diningroom=/home/share/dining-room
-forkarea=${diningroom}/forks
+forkarea=${HOME}/forks
 base=10
 
-lfork=$(my-dining-seat)
+seat=$(my-dining-seat)
 max=$(count ${diningroom}/seats/*)
 max=$((max + base))
-rfork=$((lfork + 1))
-if [ "${rfork}" -gt "${max}" ]
+right_index=$((seat + 1))
+if [ "${right_index}" -gt "${max}" ]
 then
-    rfork=$((base + 1))
+    right_index=$((base + 1))
+fi
+left_index=$((seat - 1))
+if [ "${left_index}" -eq "${base}" ]
+then
+    left_index=${max}
 fi
 
-ask_for_fork "${forkarea}/${lfork}" "${lfork}"
-ask_for_fork "${forkarea}/${rfork}" "${rfork}"
+left_name=$(seat-owner "${left_index}")
+right_name=$(seat-owner "${right_index}")
+lfork=${seat}
+rfork=${right_index}
+
+ask_for_fork "${forkarea}/${lfork}" "${lfork}" "${left_name}"
+ask_for_fork "${forkarea}/${rfork}" "${rfork}" "${right_name}"

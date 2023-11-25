@@ -2,6 +2,6 @@
 set -e
 
 echo "Releasing forks"
-find /home/share/dining-room/forks -type f -writable -delete
+rm -f ${HOME}/forks/*
 echo "Transferring forks"
 neighbours | xargs -r response-fork

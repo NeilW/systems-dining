@@ -2,4 +2,4 @@
 Description=Hungry...
 ConditionPathIsDirectory=/home/share/dining-room/seats
 Conflicts=eating.target thinking.target
-Wants=hunger.service fork-check.path fork-check.service
+Wants=hunger.service fork-check.service

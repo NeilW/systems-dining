@@ -1,6 +1,6 @@
 [Unit]
 Description=Eating Food
-ConditionPathIsDirectory=/home/share/dining-room/forks
+ConditionPathIsDirectory=/home/share/dining-room
 PartOf=eating.target
 
 [Service]

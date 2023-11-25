@@ -1,8 +1,6 @@
 [Unit]
 Description=Neighbour Fork Request
-ConditionPathIsDirectory=/home/share/dining-room/forks
-CollectMode=inactive-or-failed
-StartLimitIntervalSec=0
+ConditionPathIsDirectory=/home/share/dining-room
 After=hungry.target
 
 [Service]

@@ -1,10 +1,9 @@
 [Unit]
 Description=Fork Check
-ConditionPathIsDirectory=/home/share/dining-room/forks
+ConditionPathIsDirectory=/home/share/dining-room
 CollectMode=inactive-or-failed
 OnSuccess=eating.target
 OnFailure=fork-request.service
-StartLimitIntervalSec=0
 After=hungry.target
 
 [Service]

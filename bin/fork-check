@@ -13,7 +13,7 @@ count() {
 }
 
 diningroom=/home/share/dining-room
-forkarea=${diningroom}/forks
+forkarea=${HOME}/forks
 base=10
 
 lfork=$(my-dining-seat)

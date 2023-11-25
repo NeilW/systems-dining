@@ -45,8 +45,9 @@ The philosophers now enter the thinking state, contemplating a proposition
 from their project file, and set a time in the future when they will
 become hungry.
 
-Once a philosopher reaches the hungry target, they check if they have both forks. If not
-they email the relevant dining neighbour(s) asking for the shared fork.
+Once a philosopher reaches the hungry target, they check if they have
+both forks. If not they email the relevant dining neighbour(s) a 'fork
+request' asking for the shared fork.
 
 A sendmail '.forward' file runs a mail processor for each email received.
 
@@ -62,8 +63,11 @@ graph and avoids starvation (systemically and metaphorically).
 Once a philosopher has two forks they enter the eating state and
 set a time in the future when they will start thinking again.
 
-Before they enter the thinking state, the forks are deleted and a fork response sent
-to each of their neighbours.
+A philosopher will check whether to start eating as soon as they become
+hungry and thereafter when they receive a fork response.
+
+Before they enter the thinking state, the forks are deleted and they
+are transferred to neighbours by sending them a fork response.
 
 ## Installation
 

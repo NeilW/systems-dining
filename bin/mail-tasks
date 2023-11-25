@@ -8,7 +8,8 @@ base=10
 #SystemD requirements...
 XDG_RUNTIME_DIR=/run/user/$(id -u)
 DBUS_SESSION_BUS_ADDRESS=unix:path=${XDG_RUNTIME_DIR}/bus
-export XDG_RUNTIME_DIR DBUS_SESSION_BUS_ADDRESS
+HOME=$(getent passwd "$(id -nu)" | cut -d: -f6)
+export XDG_RUNTIME_DIR DBUS_SESSION_BUS_ADDRESS HOME
 
 # count fileglob
 count() {
@@ -23,22 +24,35 @@ count() {
 }
 
 grab_fork() {
-    if [ ! -e "${diningroom}/forks/$1" ]
-    then
-        touch "${diningroom}/forks/$1"
-        echo "Acquired fork #$1"
-    fi
+    touch "${HOME}/forks/$1"
+    echo "Acquired fork #$1"
 }
 
 remove_fork() {
-    if [ -w "${diningroom}/forks/$1" ]
+    if [ -w "${HOME}/forks/$1" ]
     then
-        rm "${diningroom}/forks/$1"
-        echo "Released fork #$1"
+        # Final check we're in the right state before removing forks
+        if systemctl --user --quiet is-active eating.target hungry.target
+        then
+            echo "Transistioned away from thinking while processing"
+            echo "Ignoring request"
+            exit 0
+        else
+            rm "${HOME}/forks/$1"
+            echo "Released fork #$1"
+        fi
     else
         echo "I don't have fork #$1"
         echo "Ignoring request"
         exit 0
+    fi
+}
+
+try_to_eat() {
+    if fork-check
+    then
+        echo "Time to eat"
+        systemctl --user --quiet start eating.target
     fi
 }
 
@@ -78,19 +92,13 @@ Fork\ Request)
     then
         if systemctl --user --quiet is-active hungry.target
         then
-            echo "while hungry. Considering request..."
-            # Check we're not transitioning between states
-            if fork-check
-            then
-                echo "Mmmm. should be eating"
-                echo "I'll pick up the fork again"
-                touch "${diningroom}/forks/${seat}"
-                exit 0
-            fi
+            echo "while hungry."
             echo "I have priority"
+            try_to_eat
             exit 0
         else
-            echo "while eating. Ignoring request."
+            echo "while eating."
+            echo "I'll respond when I've finished eating."
             exit 0
         fi
     fi
@@ -125,6 +133,7 @@ Fork\ Response)
         echo "Discarding mail"
         exit 0
     fi
+    systemctl --user --quiet is-active hungry.target && try_to_eat
     ;;
 *)
     echo "Unknown mail request ${2} from ${1}"
