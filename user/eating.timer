@@ -7,6 +7,6 @@ StartLimitIntervalSec=0
 [Timer]
 Unit=thinking.target
 RandomizedDelaySec=30
-OnActiveSec=0
+OnActiveSec=1
 AccuracySec=1us
 RemainAfterElapse=false
