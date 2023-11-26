@@ -2,6 +2,7 @@
 Description=Eating Period
 ConditionPathIsDirectory=/home/share/dining-room/seats
 PartOf=eating.target
+StartLimitIntervalSec=0
 
 [Timer]
 Unit=thinking.target

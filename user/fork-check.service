@@ -5,6 +5,7 @@ CollectMode=inactive-or-failed
 OnSuccess=eating.target
 OnFailure=fork-request.service
 After=hungry.target
+StartLimitIntervalSec=0
 
 [Service]
 Type=oneshot

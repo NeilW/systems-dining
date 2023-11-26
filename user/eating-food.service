@@ -2,6 +2,7 @@
 Description=Eating Food
 ConditionPathIsDirectory=/home/share/dining-room
 PartOf=eating.target
+StartLimitIntervalSec=0
 
 [Service]
 Type=oneshot

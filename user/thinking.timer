@@ -2,6 +2,7 @@
 Description=Thinking Period
 PartOf=thinking.target
 After=eating-food.service
+StartLimitIntervalSec=0
 
 [Timer]
 Unit=hungry.target

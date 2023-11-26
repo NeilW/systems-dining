@@ -2,6 +2,7 @@
 Description=Neighbour Fork Request
 ConditionPathIsDirectory=/home/share/dining-room
 After=hungry.target
+StartLimitIntervalSec=0
 
 [Service]
 Type=oneshot
