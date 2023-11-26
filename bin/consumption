@@ -1,4 +1,5 @@
 #!/bin/sh
+trap '' TERM
 set -e
 
 echo "Eating..."
