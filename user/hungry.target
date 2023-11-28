@@ -1,5 +1,5 @@
 [Unit]
 Description=Hungry...
-ConditionPathIsDirectory=/home/share/dining-room/seats
+ConditionPathIsDirectory=/home/share/dining-room
 Conflicts=eating.target thinking.target
 Wants=hunger.service fork-check.service

@@ -1,6 +1,6 @@
 [Unit]
 Description=Hunger
-ConditionPathIsDirectory=/home/share/dining-room/seats
+ConditionPathIsDirectory=/home/share/dining-room
 PartOf=hungry.target
 Before=eating.target fork-check.service
 

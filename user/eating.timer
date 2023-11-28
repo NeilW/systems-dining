@@ -1,6 +1,6 @@
 [Unit]
 Description=Eating Period
-ConditionPathIsDirectory=/home/share/dining-room/seats
+ConditionPathIsDirectory=/home/share/dining-room
 PartOf=eating.target
 StartLimitIntervalSec=0
 
