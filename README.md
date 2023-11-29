@@ -22,15 +22,15 @@ Unix Programming Environment a work out it hasn't seen for a good while.
 
 ## Design overview
 
-We'll be using a variant of the Chandry/Misra 'hygiene' solution to
+We'll be using a variant of the Chandry/Misra "hygiene" solution to
 the Dining Philosophers problem.
 
 Each philosopher is a separate user ID on the server and sits in its
-own unix group. It is also a member of the 'philosophers' group which
+own unix group. It is also a member of the `philosophers` group which
 has access to the dining room at /home/share/dining-room.
 
 The philosophers run autonomously and take their seats once the
-dining-room is open (writable by group 'philosophers'). Seats are
+dining-room is open (writable by group `philosophers`). Seats are
 dynamically allocated on a first come first served basis with each
 philosopher grabbing the first seat they can by creating a file in the
 dining room with their seat number on it that nobody else can write to.
@@ -46,10 +46,10 @@ from their project file, and set a time in the future when they will
 become hungry.
 
 Once a philosopher reaches the hungry target, they check if they have
-both forks. If not they email the relevant dining neighbour(s) a 'fork
-request' asking for the shared fork.
+both forks. If not they email the relevant dining neighbour(s) a "fork
+request" asking for the shared fork.
 
-A sendmail '.forward' file runs a mail processor for each email received.
+A sendmail `.forward` file runs a mail processor for each email received.
 
 For each fork request related to a sender
 - if we are thinking and we have the fork, we delete the fork and send a fork response back.
@@ -71,9 +71,9 @@ are transferred to neighbours by sending them a fork response.
 
 ## Installation
 
-From an Ubuntu LTS server logged in as the admin user and run the setup script
+From an Ubuntu LTS server logged in as the admin user, clone the repo and run the setup script
 
-    ubuntu@srv-2q8eh:~$ git clone git@github.com:NeilW/systemd-dining.git
+    ubuntu@srv-2q8eh:~$ git clone --depth 1 git@github.com:NeilW/systemd-dining.git
     Cloning into 'systemd-dining'...
     ...
     ubuntu@srv-2q8eh:~$ cd systemd-dining/
