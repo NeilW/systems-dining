@@ -1,0 +1,10 @@
+[Unit]
+Description=User Slice of UID %j
+Documentation=man:user@.service(5)
+After=systemd-user-sessions.service
+StopWhenUnneeded=yes
+
+[Slice]
+TasksMax=33%
+PrivateNetwork=no
+PrivateTmp=no
