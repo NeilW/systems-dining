@@ -39,6 +39,6 @@ then
 fi
 
 echo "Waiting for everybody to take their seats"
-fsnotifywait -q -q -e close_write -t "${WAIT_FOR_READY_SECS}" -m "${diningroom}/seats" || [ "$?" -eq 2 ]
+fsnotifywait -I -q -q -e close_write -t "${WAIT_FOR_READY_SECS}" -m "${diningroom}/seats" || [ "$?" -eq 2 ]
 
 echo "Starting..."

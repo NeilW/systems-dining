@@ -1,0 +1,8 @@
+[Exec]
+Boot=on
+PrivateUsers=pick
+LinkJournal=try-guest
+
+[Network]
+Private=on
+Port=23

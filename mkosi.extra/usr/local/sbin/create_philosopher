@@ -7,7 +7,11 @@ fi
 set -e
 umask 022
 adduser --disabled-password --shell /bin/bash --gecos "$2,,,,$3" "$1" 
+getent group philosophers > /dev/null || addgroup philosophers
 adduser "$1" philosophers
+echo "|/usr/local/bin/mail-processor" > /home/"$1"/.forward
+mkdir -p /home/"$1"/.config/systemd/user/default.target.wants
+ln -sf /etc/systemd/user/select-seat.path /etc/systemd/user/select-seat.service /home/"$1"/.config/systemd/user/default.target.wants
 loginctl enable-linger "$1"
 if [ -z "$4" ]
 then
