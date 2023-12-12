@@ -1,8 +1,4 @@
-[Exec]
-Boot=on
-PrivateUsers=pick
-LinkJournal=try-guest
-
 [Network]
-Private=on
+Private=yes
+VirtualEthernet=no
 Port=23

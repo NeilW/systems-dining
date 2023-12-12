@@ -1,0 +1,12 @@
+[Unit]
+Description=Augment Hosts File
+ConditionFirstBoot=yes
+Before=sendmail.service first-boot-complete.target
+Wants=first-boot-complete.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'echo 127.0.0.2 %H.local %H >> /etc/hosts'
+
+[Install]
+WantedBy=multi-user.target
