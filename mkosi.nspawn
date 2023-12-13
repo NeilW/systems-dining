@@ -1,4 +1,2 @@
 [Network]
-Private=yes
-VirtualEthernet=no
 Port=23
