@@ -1,0 +1,12 @@
+#!/bin/sh
+if [ "$#" -lt 1 ]
+then
+	echo "Usage: ${0##*/} name ['Full Name' ['Comment']]" >&2
+	exit 64
+fi
+set -e
+umask 022
+getent group agents > /dev/null || addgroup --firstgid 1500 agents
+adduser --disabled-login --firstuid 2000 --shell /bin/bash --gecos "$2,,,,$3" "$1" 
+adduser "$1" agents
+passwd -de "$1"

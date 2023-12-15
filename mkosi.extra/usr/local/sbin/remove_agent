@@ -8,9 +8,9 @@ set -e
 for word
 do
 	loginctl disable-linger "$word"
-    if groups "$word" | grep -q philosophers
+    if groups "$word" | grep -q agents
     then
-        deluser "$word" philosophers
+        deluser "$word" agents
     fi
 	deluser --remove-home "$word"
 done
