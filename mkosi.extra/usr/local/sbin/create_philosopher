@@ -6,8 +6,8 @@ then
 fi
 set -e
 umask 022
+getent group philosophers > /dev/null || addgroup --firstgid 1500 philosophers
 adduser --disabled-password --shell /bin/bash --gecos "$2,,,,$3" "$1" 
-getent group philosophers > /dev/null || addgroup philosophers
 adduser "$1" philosophers
 echo "|/usr/local/bin/mail-processor" > /home/"$1"/.forward
 mkdir -p /home/"$1"/.config/systemd/user/default.target.wants

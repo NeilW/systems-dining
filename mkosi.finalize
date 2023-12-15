@@ -1,1 +1,4 @@
+# Mask unneeded services
 ln -s /dev/null ${BUILDROOT}/etc/systemd/system/systemd-networkd-wait-online.service
+ln -s /dev/null ${BUILDROOT}/etc/systemd/system/motd-news.timer
+ln -s /dev/null ${BUILDROOT}/etc/systemd/system/motd-news.service
