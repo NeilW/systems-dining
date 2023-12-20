@@ -9,4 +9,5 @@ umask 022
 getent group agents > /dev/null || addgroup --firstgid 1500 agents
 adduser --disabled-login --firstuid 2000 --shell /bin/bash --gecos "$2,,,,$3" "$1" 
 adduser "$1" agents
+adduser "$1" systemd-journal
 passwd -de "$1"
