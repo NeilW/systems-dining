@@ -2,3 +2,4 @@
 ln -s /dev/null ${BUILDROOT}/etc/systemd/system/systemd-networkd-wait-online.service
 ln -s /dev/null ${BUILDROOT}/etc/systemd/system/motd-news.timer
 ln -s /dev/null ${BUILDROOT}/etc/systemd/system/motd-news.service
+echo "LOGIN_PLAIN_PROMPT=yes" >> ${BUILDROOT}/etc/login.defs
