@@ -36,7 +36,7 @@ After=network.target auditd.service
 
 [Service]
 Restart=on-failure
-ExecStart=/usr/bin/socat TCP6-L:8000,fork,reuseaddr EXEC:"/usr/bin/machinectl login philosophers",pty,ctty,setsid,stderr
+ExecStart=/usr/bin/socat -T 300 TCP6-L:8000,fork,reuseaddr EXEC:"/usr/bin/machinectl login philosophers",pty,ctty,setsid,stderr
 SuccessExitStatus=143
 DynamicUser=yes
 User=tlssh
