@@ -5,7 +5,7 @@ echo "Setting up philosophers container"
 DEBIAN_FRONTEND=noninteractive NEEDRESTART_SUSPEND=1 apt-get install -y systemd-container socat
 machinectl pull-tar --verify=checksum https://github.com/NeilW/systemd-dining/releases/download/latest/philosophers.tar.xz
 mkdir -p /etc/systemd/nspawn /etc/systemd/network/80-container-ve.network.d
-cp /var/lib/machines/philosophers.nspawn /etc/systemd/nspawn/philosophers.nspawn
+[ ! -e /var/lib/machines/philosophers.nspawn ] || cp /var/lib/machines/philosophers.nspawn /etc/systemd/nspawn/philosophers.nspawn
 cat > /etc/systemd/network/80-container-ve.network.d/ipv6prefix.conf <<-END
 [IPv6Prefix]
 Prefix=fd00:$(hexdump -v -n2 -e' /1 "%02x"' /dev/urandom)::/64
