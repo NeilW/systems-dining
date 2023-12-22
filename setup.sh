@@ -36,7 +36,7 @@ After=network.target auditd.service
 
 [Service]
 Restart=on-failure
-ExecStart=/usr/bin/socat -T 300 TCP6-L:8000,fork,reuseaddr EXEC:"/usr/bin/machinectl login philosophers",pty,ctty,setsid,stderr
+ExecStart=/usr/bin/socat -T 300 OPENSSL-LISTEN:8000,pf=ip6,fork,reuseaddr,verify=0,cert=/etc/letsencrypt/live/ipv6.$(hostname -f)/fullchain.pem,key=/etc/letsencrypt/live/ipv6.$(hostname -f)/privkey.pem EXEC:"/usr/bin/machinectl login philosophers",pty,ctty,setsid,stderr
 SuccessExitStatus=143
 DynamicUser=yes
 User=tlssh
@@ -53,4 +53,9 @@ UMask=077
 [Install]
 WantedBy=multi-user.target
 UNIT
+snap install certbot
+certbot certonly -q -n --register-unsafely-without-email --expand --agree-tos --standalone -d "ipv6.$(hostname -f)"
+chgrp -R gatekeeper /etc/letsencrypt/live /etc/letsencrypt/archive
+chmod -R g+r /etc/letsencrypt/live /etc/letsencrypt/archive
+chmod g+x /etc/letsencrypt/live /etc/letsencrypt/archive
 systemctl enable --now tlssh
