@@ -1,0 +1,12 @@
+#!/bin/sh
+
+printf "\n  System information as of %s\n" "$(/bin/date)" 
+if [ -e /home/share/dining-room ]
+then
+	users=$(ls /home/share/dining-room/seats | wc -l)
+	printf "\n"
+	printf "  Dining room is open (simulation running)\n"
+	printf "  %s philosophers seated\n" "${users}"
+else
+	printf "\n  Dining room is closed (simulation suspended)\n"
+fi

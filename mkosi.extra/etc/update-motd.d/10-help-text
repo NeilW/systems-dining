@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+printf "\n"
+printf "Use 'finger <name>' to inspect a philosopher\n"
+printf "Use 'npcjournal -f <name>' to watch a philosopher\n"
+printf "\n"
+printf "You will be disconnected after five minutes of inactivity\n"
