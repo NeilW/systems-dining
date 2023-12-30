@@ -1,0 +1,12 @@
+#!/bin/sh
+
+output() {
+	getent passwd | awk -F : '$3 >= 2000 && $3 < 3000 { print $1 }'
+}
+
+if [ "$1" = "-f" ]
+then
+	output | xargs finger -s
+else
+	output
+fi
