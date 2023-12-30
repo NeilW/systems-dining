@@ -2,5 +2,12 @@
 ln -s /dev/null ${BUILDROOT}/etc/systemd/system/systemd-networkd-wait-online.service
 ln -s /dev/null ${BUILDROOT}/etc/systemd/system/motd-news.timer
 ln -s /dev/null ${BUILDROOT}/etc/systemd/system/motd-news.service
+
+# No hostname on login
 echo "LOGIN_PLAIN_PROMPT=yes" >> ${BUILDROOT}/etc/login.defs
+
+# Allow user to change finger entries
 echo "CHFN_RESTRICT=no" >> ${BUILDROOT}/etc/login.defs
+
+# Remove hostname from command prompt
+sed -i 's/@\\h//' ${BUILDROOT}/etc/skel/.bashrc
