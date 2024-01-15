@@ -1,7 +1,10 @@
 [Unit]
 Description=Run sendmail cron-msp
+AssertFileIsExecutable=/etc/init.d/sendmail
+AssertFileIsExecutable=/usr/share/sendmail/sendmail
+AssertFileIsExecutable=/usr/libexec/sendmail/sendmail
 
 [Service]
 Type=simple
 User=smmsp
-ExecStart=/bin/sh -c 'test -x /etc/init.d/sendmail && test -x /usr/share/sendmail/sendmail && test -x /usr/libexec/sendmail/sendmail && /usr/share/sendmail/sendmail cron-msp'
+ExecStart=/usr/share/sendmail/sendmail cron-msp
