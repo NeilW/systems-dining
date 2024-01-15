@@ -1,0 +1,7 @@
+[Unit]
+Description=Run sendmail cron-msp
+
+[Service]
+Type=simple
+User=smmsp
+ExecStart=/bin/sh -c 'test -x /etc/init.d/sendmail && test -x /usr/share/sendmail/sendmail && test -x /usr/libexec/sendmail/sendmail && /usr/share/sendmail/sendmail cron-msp'
