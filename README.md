@@ -71,49 +71,57 @@ are transferred to neighbours by sending them a fork response.
 
 ## Installation
 
-From an Ubuntu LTS server logged in as the admin user, clone the repo and run the setup script
-
-    ubuntu@srv-2q8eh:~$ git clone --depth 1 git@github.com:NeilW/systemd-dining.git
-    Cloning into 'systemd-dining'...
-    ...
-    ubuntu@srv-2q8eh:~$ cd systemd-dining/
-    ubuntu@srv-2q8eh:~/systemd-dining$ sudo ./setup.sh
-    Adding required packages
-    ...
-    Installing simulation
+[Follow the instructions to install the container on a new server](SETUP.md)
 
 ## Run the simulation
 
 Create the philosophers
 
-    ubuntu@srv-2q8eh:~/systemd-dining$ xargs -L 1 sudo /usr/local/sbin/create_philosopher < philosophers
+    root@philosophers:~# xargs -L 1 create_philosopher < philosophers
 
 Open the dining room
 
-    ubuntu@srv-5o1ic:~/systemd-dining$ sudo open_dining_room
+    root@philosophers:~# open_dining_room
 
 ## Stop the simulation
 
 Close the dining room
 
-    ubuntu@srv-5o1ic:~/systemd-dining$ sudo close_dining_room
+    root@philosophers:~# close_dining_room
 
 Remove the philosophers
 
-    ubuntu@srv-2q8eh:~/systemd-dining$ awk '{print $1}' philosophers | xargs sudo /usr/local/sbin/remove_philosopher
+    root@philosophers:~# awk '{print $1}' philosophers | xargs remove_philosopher
 
 ## Interesting things to look at
 
+List the philosophers in the simulation
+
+    agent1:~$ npcs
+    kant
+    heidegger
+    hegel
+    hume
+    schlegel
+    wittgenstein
+    nietzsche
+    socrates
+    mill
+    plato
+    aristotle
+    hobbes
+    descartes
+
 Check a philosopher's activity
 
-    ubuntu@srv-5o1ic:~/systemd-dining$ npcjournal hegel
+    agent1:~$ npcjournal hegel
     Nov 14 09:15:33 srv-5o1ic select-seat[7048]: The Dining Room is open. Looking for a seat.
     Nov 14 09:15:33 srv-5o1ic select-seat[7048]: I have seat #6
     Nov 14 09:15:33 srv-5o1ic select-seat[7048]: Acquired fork #7
 
 Follow a philosopher's activity in real time
 
-    ubuntu@srv-4mujm:~$ npcjournal -f hegel
+    agent1:~$ npcjournal -f hegel
     Nov 19 14:10:30 mail-tasks[1072039]: Received fork response from hume
     Nov 19 14:10:30 mail-tasks[1072039]: Acquired fork #8
     Nov 19 14:10:30 fork-check[1072079]: I have two clean forks
@@ -126,7 +134,7 @@ Follow a philosopher's activity in real time
 
 Look at today's contemplations for a philosopher
 
-    ubuntu@srv-4mujm:~$ npcjournal --since=today --identifier=contemplation hegel | more
+    agent1:~$ npcjournal --since=today --identifier=contemplation hegel | more
     Nov 19 00:00:39 contemplation[368515]: Currently contemplating the idea that contradiction and conflict are
     Nov 19 00:00:39 contemplation[368515]: inherent in the development of ideas and societies.
     Nov 19 00:01:32 contemplation[370247]: Currently contemplating the belief that reality is rational, and reason
@@ -136,7 +144,7 @@ Look at today's contemplations for a philosopher
 
 Get the gory details at systemd unit level
 
-    ubuntu@srv-4mujm:~$ journalctl _UID=$(id -u kant) --since today
+    agent1:~$ journalctl _UID=$(id -u kant) --since today
     Nov 19 14:16:46 srv-4mujm systemd[98014]: Starting Clean Fork Check...
     Nov 19 14:16:47 srv-4mujm systemd[98014]: fork-check.service: Main process exited, code=exited, status=75/TEMPFAIL
     Nov 19 14:16:47 srv-4mujm systemd[98014]: fork-check.service: Failed with result 'exit-code'.
@@ -151,7 +159,7 @@ Get the gory details at systemd unit level
 
 See the philsopher's details and what they are thinking about
 
-    $ finger hume
+    agent1:~$ finger hume
     Login: hume           			        Name: David Hume
     Directory: /home/hume               	Shell: /bin/bash
     Never logged in.
