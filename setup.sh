@@ -40,10 +40,10 @@ polkit.addRule(function(action, subject) {
 POLKIT
 fqdn=$(hostname -f)
 terminal_dir=/usr/local/share/terminal
-snap install certbot
+snap install --classic certbot
 if host "public.${fqdn}" >/dev/null 2>&1
 then
-    domains="public.${fqdn},ipv6.${fqdn}"
+    domains="ipv6.${fqdn},public.${fqdn}"
 else
     domains="ipv6.${fqdn}"
 fi
