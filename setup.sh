@@ -29,7 +29,6 @@ u tlssh - "Philosophers secure login" /nonexistent
 m tlssh gatekeeper
 USERS
 systemd-sysusers
-mkdir -p /etc/polkit-1/rules.d
 cat > /etc/polkit-1/rules.d/10-gatekeeper-login.rules <<-POLKIT
 polkit.addRule(function(action, subject) {
     if (action.id == "org.freedesktop.machine1.login" &&
