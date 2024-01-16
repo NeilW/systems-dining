@@ -40,7 +40,13 @@ POLKIT
 fqdn=$(hostname -f)
 terminal_dir=/usr/local/share/terminal
 snap install certbot
-certbot certonly -q -n --register-unsafely-without-email --expand --agree-tos --standalone -d "ipv6.${fqdn}"
+if host "public.${fqdn}" >/dev/null 2>&1
+then
+    domains="public.${fqdn},ipv6.${fqdn}"
+else
+    domains="ipv6.${fqdn}"
+fi
+certbot certonly -q -n --register-unsafely-without-email --expand --agree-tos --standalone -d "${domains}"
 chgrp -R gatekeeper /etc/letsencrypt/live /etc/letsencrypt/archive
 chmod -R g+r /etc/letsencrypt/live /etc/letsencrypt/archive
 chmod g+x /etc/letsencrypt/live /etc/letsencrypt/archive
