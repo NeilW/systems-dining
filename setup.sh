@@ -104,3 +104,21 @@ UMask=077
 WantedBy=multi-user.target
 WSS
 systemctl enable --now wsssh.service tlssh.service
+if [ -e /swapfile ]
+then
+    exit 0
+fi
+fallocate -l 2G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+cat > /etc/systemd/system/swapfile.swap <<-SWAP
+[Unit]
+Description=Philosophers swapfile
+
+[Swap]
+What=/swapfile
+
+[Install]
+WantedBy=multi-user.target
+SWAP
+systemctl enable --now swapfile.swap
