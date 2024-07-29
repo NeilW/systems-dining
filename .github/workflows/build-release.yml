@@ -18,7 +18,7 @@ jobs:
         shell: bash
     steps:
       - name: setup-mkosi
-        uses: systemd/mkosi@v22
+        uses: systemd/mkosi@v24
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build image
